@@ -1,0 +1,19 @@
+[project]
+name = "ledgy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "typer>=0.20.0",
+    "langchain[openai]>=1.1.0",
+    "markitdown[all]>=0.1.3",
+    "openai>=2.8.1",
+    "pydantic>=2.12.4",
+    "python-dotenv>=1.2.1",
+    "PyYAML>=6.0.1", # Добавлена зависимость для работы с YAML
+    "smolagents[toolkit]>=1.23.0",
+]
+
+[project.scripts]
+ledgy = "ledgy_cli.cli:app" # Точка входа для CLI
