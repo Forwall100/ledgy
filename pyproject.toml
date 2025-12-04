@@ -11,9 +11,12 @@ dependencies = [
     "openai>=2.8.1",
     "pydantic>=2.12.4",
     "python-dotenv>=1.2.1",
-    "PyYAML>=6.0.1", # Добавлена зависимость для работы с YAML
+    "PyYAML>=6.0.1",
     "smolagents[toolkit]>=1.23.0",
 ]
 
 [project.scripts]
-ledgy = "ledgy_cli.cli:app" # Точка входа для CLI
+ledgy = "ledgy_cli.cli:app"
+
+[tool.setuptools.package-data]
+"ledgy_cli" = ["**/*.md"] # Включает все md файлы внутри пакета
