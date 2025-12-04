@@ -1,9 +1,11 @@
 import typer
 from pathlib import Path
 from typing import Annotated, Optional
+import uvicorn
 
 from ledgy_cli.src.commands.add import add as add_command
 from ledgy_cli.src.commands.ask import ask as ask_command
+from ledgy_cli.src.api.main import app as fastapi_app
 
 app = typer.Typer(help="Ledgy CLI tool")
 
@@ -86,6 +88,19 @@ def ask(
     ask_command(
         query=query, ledger_file=ledger_file, config_path=config_path, verbose=verbose
     )
+
+
+@app.command()
+def serve(
+    host: Annotated[
+        str, typer.Option("--host", help="Host for the API server.")
+    ] = "127.0.0.1",
+    port: Annotated[
+        int, typer.Option("--port", help="Port for the API server.")
+    ] = 8000,
+):
+    """Start the Ledgy API server"""
+    uvicorn.run(fastapi_app, host=host, port=port)
 
 
 if __name__ == "__main__":

@@ -71,25 +71,15 @@ ledgy add <input_data> [OPTIONS]
   ledgy add "/path/to/bank_statement.pdf" --file /path/to/my/personal.ledger --write
   ```
 
-### 2. `ask` command
+### 3. `serve` command
 
-Asks a question about your ledger data. Ledgy will use natural language processing to interpret your question and query your ledger.
+Starts a FastAPI server to expose `add` and `ask` functionalities via HTTP API.
 
 ```bash
-ledgy ask "<your_question>" [OPTIONS]
+ledgy serve [OPTIONS]
 ```
 
-**Arguments:**
-- `"<your_question>"`: The question you want to ask about your financial data, enclosed in double quotes.
+**Options:**
+- `--host TEXT`: Host for the API server (default: `127.0.0.1`)
+- `--port INTEGER`: Port for the API server (default: `8000`)
 
-**Examples:**
-
-- What is my balance for `assets:bank`?
-  ```bash
-  ledgy ask "What is my balance for assets:bank?"
-  ```
-
-- Show me all transactions related to `travel` from a specific ledger file:
-  ```bash
-  ledgy ask "Show me all transactions related to travel." --file /path/to/my/personal.ledger
-  ```
