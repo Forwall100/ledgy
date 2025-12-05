@@ -30,9 +30,15 @@ def create_ledger_agent(
             model=llm,
             additional_authorized_imports=["pandas", "math", "random", "numpy"],
             verbosity_level=LogLevel.ERROR,
+            max_steps=10,
         )
     else:
-        agent = CodeAgent(tools=tools, model=llm)
+        agent = CodeAgent(
+            tools=tools,
+            model=llm,
+            additional_authorized_imports=["pandas", "math", "random", "numpy"],
+            max_steps=10,
+        )
 
     return agent
 
