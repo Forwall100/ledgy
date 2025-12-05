@@ -15,7 +15,6 @@ from ledgy_cli.src.utils.ledger import Ledger
 
 app = FastAPI()
 
-# Загружаем конфигурацию один раз при запуске приложения
 config = load_config()
 
 
@@ -71,7 +70,10 @@ async def add(
     tmp_file_path = None
     if file:
         # Создаем временный файл для хранения содержимого загруженного файла
-        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+        file_extension = os.path.splitext(file.filename)[1] if file.filename else ""
+        with tempfile.NamedTemporaryFile(
+            delete=False, suffix=file_extension
+        ) as tmp_file:
             tmp_file.write(await file.read())
             tmp_file_path = tmp_file.name
 
