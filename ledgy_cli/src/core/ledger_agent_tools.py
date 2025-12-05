@@ -40,29 +40,17 @@ class LedgerBalanceTool(BaseLedgerTool):
     Используй этот инструмент когда нужно:
     - Узнать текущий баланс конкретного счета или всех счетов
     - Увидеть иерархию счетов с балансами
-    - Получить балансы за определенный период
     - Построить тренды (используй monthly=True для помесячной разбивки)
     
     Примеры использования:
     - Баланс всех счетов: ledger_balance()
     - Баланс расходов на еду: ledger_balance(account="expenses:food")
-    - Помесячная динамика активов: ledger_balance(account="assets", begin_date="2024-01-01", end_date="2024-12-31", monthly=True)
     """
 
     inputs = {
         "account": {
             "type": "string",
             "description": "Название счета или часть имени (опционально). Например: 'assets', 'expenses:food', 'income'",
-            "nullable": True,
-        },
-        "begin_date": {
-            "type": "string",
-            "description": "Начальная дата в формате YYYY-MM-DD (опционально)",
-            "nullable": True,
-        },
-        "end_date": {
-            "type": "string",
-            "description": "Конечная дата в формате YYYY-MM-DD (опционально)",
             "nullable": True,
         },
         "period": {
@@ -96,8 +84,6 @@ class LedgerBalanceTool(BaseLedgerTool):
     def forward(
         self,
         account: Optional[str] = None,
-        begin_date: Optional[str] = None,
-        end_date: Optional[str] = None,
         period: Optional[str] = None,
         depth: Optional[int] = None,
         monthly: Optional[bool] = None,
@@ -108,12 +94,6 @@ class LedgerBalanceTool(BaseLedgerTool):
 
         if account:
             args.append(account)
-
-        if begin_date:
-            args.extend(["--begin", begin_date])
-
-        if end_date:
-            args.extend(["--end", end_date])
 
         if period:
             args.extend(["--period", period])
@@ -145,7 +125,6 @@ class LedgerRegisterTool(BaseLedgerTool):
     Примеры использования:
     - Все транзакции: ledger_register()
     - Транзакции по расходам на еду: ledger_register(account="expenses:food")
-    - Транзакции за период: ledger_register(account="expenses", begin_date="2024-01-01", end_date="2024-12-31")
     - Помесячная сводка: ledger_register(account="income", monthly=True)
     """
 
@@ -153,16 +132,6 @@ class LedgerRegisterTool(BaseLedgerTool):
         "account": {
             "type": "string",
             "description": "Название счета (опционально)",
-            "nullable": True,
-        },
-        "begin_date": {
-            "type": "string",
-            "description": "Начальная дата YYYY-MM-DD (опционально)",
-            "nullable": True,
-        },
-        "end_date": {
-            "type": "string",
-            "description": "Конечная дата YYYY-MM-DD (опционально)",
             "nullable": True,
         },
         "period": {
@@ -191,8 +160,6 @@ class LedgerRegisterTool(BaseLedgerTool):
     def forward(
         self,
         account: Optional[str] = None,
-        begin_date: Optional[str] = None,
-        end_date: Optional[str] = None,
         period: Optional[str] = None,
         monthly: Optional[bool] = None,
         weekly: Optional[bool] = None,
@@ -202,12 +169,6 @@ class LedgerRegisterTool(BaseLedgerTool):
 
         if account:
             args.append(account)
-
-        if begin_date:
-            args.extend(["--begin", begin_date])
-
-        if end_date:
-            args.extend(["--end", end_date])
 
         if period:
             args.extend(["--period", period])
@@ -256,16 +217,6 @@ class LedgerPrintTool(BaseLedgerTool):
             "description": "Поиск по получателю платежа (опционально)",
             "nullable": True,
         },
-        "begin_date": {
-            "type": "string",
-            "description": "Начальная дата (опционально)",
-            "nullable": True,
-        },
-        "end_date": {
-            "type": "string",
-            "description": "Конечная дата (опционально)",
-            "nullable": True,
-        },
     }
     output_type = "string"
 
@@ -274,8 +225,6 @@ class LedgerPrintTool(BaseLedgerTool):
         account: Optional[str] = None,
         description: Optional[str] = None,
         payee: Optional[str] = None,
-        begin_date: Optional[str] = None,
-        end_date: Optional[str] = None,
     ) -> str:
         args = ["print"]
 
@@ -287,12 +236,6 @@ class LedgerPrintTool(BaseLedgerTool):
 
         if payee:
             args.extend(["--limit", f"payee =~ /{payee}/"])
-
-        if begin_date:
-            args.extend(["--begin", begin_date])
-
-        if end_date:
-            args.extend(["--end", end_date])
 
         return self._execute_ledger(args)
 

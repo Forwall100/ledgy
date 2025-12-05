@@ -41,7 +41,7 @@ async def ask(request: AskRequest):
             api_base_url=api_base_url,
             ledger_file_path=str(ledger_file_path),
             ledger_executable=ledger_executable,
-            verbose=False,
+            verbose=True,
         )
         return {"response": result}
     except Exception as e:
