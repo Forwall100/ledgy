@@ -23,3 +23,8 @@ ledgy = "ledgy_cli.cli:app"
 
 [tool.setuptools.package-data]
 "ledgy_cli" = ["**/*.md"] # Включает все md файлы внутри пакета
+
+[dependency-groups]
+dev = [
+    "ty>=0.0.1a32",
+]

@@ -1,5 +1,4 @@
 from datetime import date
-from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 from pydantic import SecretStr
@@ -40,7 +39,7 @@ class TransactionExtractionService:
         content = extractor.extract_text(input_data=input_data)
 
         llm = ChatOpenAI(
-            base_url=self.base_url, api_key=self.api_key, model=self.model
+            openai_api_base=self.base_url, api_key=self.api_key, model_name=self.model
         ).with_structured_output(TransactionExtractionResult)
 
         ledger = Ledger(

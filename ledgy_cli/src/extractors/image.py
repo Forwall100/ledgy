@@ -22,7 +22,7 @@ class ImageExtractor(BaseExtractor):
 
     def extract_text(self, input_data: str) -> str:
         v_llm = ChatOpenAI(
-            base_url=self.base_url, api_key=self.api_key, model=self.model
+            openai_api_base=self.base_url, api_key=self.api_key, model_name=self.model
         )
 
         ocr_messages = [
