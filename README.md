@@ -20,9 +20,9 @@ To install Ledgy, follow these steps:
    cd ledgy
    ```
 
-2. **Install Ledgy using pipx**:
+2. **Install Ledgy using uv**:
    ```bash
-   pipx install .
+   uv tool install .
    ```
 
 ## Configuration
